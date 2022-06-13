@@ -5,22 +5,20 @@ var playerAttack = 10;
 var playerMoney = 10;
 
 
-
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
 
-
-
-for(var i = 0; i < enemyNames.length; i++) {
-  console.log(enemyNames[i]);
-  console.log(i);
-  console.log(enemyName[i] + " is at " + i + " index");
-}
-
 // fight function
 var fight = function(enemyName) {
+
+
+    // repeat and execute as long as the enemy-robot is alive 
+    while(enemyHealth > 0) {
+      // place fight function code block here . . .
+
+    }
   // Alert players that they are starting the round
   window.alert("Welcome to Robot Gladiators!");
 
@@ -59,11 +57,20 @@ var fight = function(enemyName) {
     // confirm player wants to skip
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
-    // if yes (true), leave fight
-    if (confirmSkip) {
-      window.alert(playerName + " has decided to skip this fight. Goodbye!");
-      // subtract money from playerMoney for skipping
-      playerMoney = playerMoney - 2;
+// if player picks "skip" confirm and then stop the loop
+if (promptFight === "skip" || promptFight === "SKIP") {
+  // confirm player wants to skip
+  var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+  // if yes (true), leave fight
+  if (confirmSkip) {
+    window.alert(playerName + " has decided to skip this fight. Goodbye!");
+    // subtract money from playerMoney for skipping
+    playerMoney = playerMoney - 10;
+    console.log("playerMoney", playerMoney)
+    break;
+  }
+}
     }
     // if no (false), ask question again by running fight() again
     else {
@@ -75,8 +82,45 @@ var fight = function(enemyName) {
   }
 }; // end of fight function
 
+
+for (var i = 0; i < enemyNames.length; i++) {
+  var pickedEnemyName = enemyNames[i];
+  enemyHealth = 50;
+  fight(pickedEnemyName);
+}
+
+if (playerHealth <= 0) {
+  window.alert(playerName + " has died!");
+  break;
+}
+
+
+if (confirmSkip) {
+  window.alert(playerName + " has decided to skip this fight. Goodbye!");
+  // subtract money from playerMoney for skipping
+  playerMoney = playerMoney - 10;
+  console.log("playerMoney", playerMoney);
+}
+if (playerHealth > 0) {
+  // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+  window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+
+  // pick new enemy to fight based on the index of the enemyNames array
+  var pickedEnemyName = enemyNames[i];
+
+  // reset enemyHealth before starting new fight
+  enemyHealth = 50;
+
+  // use debugger to pause script from running and check what's going on at that moment in the code
+  // debugger;
+
+  // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+  fight(pickedEnemyName);
+}
+
 // run fight function to start game
-// fight();
+fight();
+
 for(var i = 0; i < enemyNames.length; i++) {
   fight(enemyNames[i]);
 }
